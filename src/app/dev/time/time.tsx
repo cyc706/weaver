@@ -33,7 +33,8 @@ const useStore = create<Store>()(
 function base64Decode(base64: string): string {
   try {
     return atob(base64);
-  } catch (e) {
+  } catch (error) {
+    console.log(error);
     return "Invalid Base64 string";
   }
 }
