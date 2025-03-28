@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * 安全获取嵌套对象属性的值
  * @param obj 要查询的对象
