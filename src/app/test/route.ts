@@ -1,7 +1,7 @@
 export async function GET() {
 
   return Response.json({ 
-    error_code: 123,
+    error_code: 0,
     error_description: "",
     name: 'John Doe',
     info: ['apple', 'banana', 'orange'],
