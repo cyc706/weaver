@@ -1,10 +1,15 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import { get } from "@/utils/index";
+import { get, getTradingDayInfo } from "@/utils/index";
 
 export async function GET() {
   const today = dayjs().format("YYYY-MM-DD");
+
+  const dayInfo = getTradingDayInfo(today);
+  const { lastTradingDate, currentDate, currentDateName } = dayInfo;
   const indexClode = "000001"; // 上证指数
+
+
   try {
     const [minDataResult, summaryResult] = await Promise.all([
       // 上证指数的分时数据
@@ -14,8 +19,8 @@ export async function GET() {
         params: {
           symbol: indexClode,
           period: "1",
-          start_date: `${today} 09:30:00`,
-          end_date: `${today} 15:00:00`,
+          start_date: `${lastTradingDate} 09:30:00`,
+          end_date: `${lastTradingDate} 15:00:00`,
         },
       }),
 
@@ -24,8 +29,8 @@ export async function GET() {
         url: "http://47.99.211.178:8888/api/public/index_zh_a_hist",
         params: {
           symbol: indexClode,
-          start_date: `${today}`,
-          end_date: `${today}`,
+          start_date: `${lastTradingDate}`,
+          end_date: `${lastTradingDate}`,
         },
       })
     ]);
@@ -43,6 +48,8 @@ export async function GET() {
         summary: {
           indexClode,
           indexName: "上证指数",
+          currentDate,
+          currentDateName,
           date: get(summaryResult.data, "[0].日期"),
           value: get(summaryResult.data, "[0].收盘"),
           rate: get(summaryResult.data, "[0].涨跌幅"),
