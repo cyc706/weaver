@@ -35,6 +35,9 @@ export async function GET() {
       })
     ]);
 
+
+    console.log(summaryResult.data)
+
     return Response.json({
       code: 0,
       data: {
@@ -52,7 +55,8 @@ export async function GET() {
           currentDateName,
           date: get(summaryResult.data, "[0].日期"),
           value: get(summaryResult.data, "[0].收盘"),
-          rate: get(summaryResult.data, "[0].涨跌幅"),
+          diff: get(summaryResult.data, "[0].涨跌额"),
+          diffPercent: get(summaryResult.data, "[0].涨跌幅"),
         }
       }
     });
