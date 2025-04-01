@@ -6,8 +6,8 @@ export async function GET() {
   const today = dayjs().format("YYYY-MM-DD");
 
   const dayInfo = getTradingDayInfo(today);
-  const { lastTradingDate, currentDate, currentDateName } = dayInfo;
-  const indexClode = "000001"; // 上证指数
+  const { lastTradingDate, currentDate, currentDateName, isTradingDate } = dayInfo;
+  const indexCode = "000001"; // 上证指数
 
 
   try {
@@ -17,7 +17,7 @@ export async function GET() {
         method: "get",
         url: "http://47.99.211.178:8888/api/public/index_zh_a_hist_min_em",
         params: {
-          symbol: indexClode,
+          symbol: indexCode,
           period: "1",
           start_date: `${lastTradingDate} 09:30:00`,
           end_date: `${lastTradingDate} 15:00:00`,
@@ -28,15 +28,12 @@ export async function GET() {
         method: "get",
         url: "http://47.99.211.178:8888/api/public/index_zh_a_hist",
         params: {
-          symbol: indexClode,
+          symbol: indexCode,
           start_date: `${lastTradingDate}`,
           end_date: `${lastTradingDate}`,
         },
       })
     ]);
-
-
-    console.log(summaryResult.data)
 
     return Response.json({
       code: 0,
@@ -49,10 +46,11 @@ export async function GET() {
           }
         }),
         summary: {
-          indexClode,
+          indexCode,
           indexName: "上证指数",
           currentDate,
           currentDateName,
+          isTradingDate,
           date: get(summaryResult.data, "[0].日期"),
           value: get(summaryResult.data, "[0].收盘"),
           diff: get(summaryResult.data, "[0].涨跌额"),
