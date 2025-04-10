@@ -61,17 +61,23 @@ export async function GET() {
     ]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const list = minDataResult.data.map((item: any) => {
+    const list = formatDateFromStr(lastTradingDate, minDataResult.data.map((item: any) => {
       return {
         time: item.时间,
         value: item.最低,
       };
-    });
+    }));
+
+
+    const listStartTime = Math.floor(dayjs(`${lastTradingDate} 09:30:00`).valueOf() / 1000);
+    const listEndTime = listStartTime + 240 * 60;
 
     return Response.json({
       code: 0,
       data: {
-        list: formatDateFromStr(lastTradingDate, list),
+        listStartTime,
+        listEndTime,
+        list,
         summary: {
           indexCode,
           indexName: "上证指数",
