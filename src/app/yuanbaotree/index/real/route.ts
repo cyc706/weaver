@@ -40,8 +40,8 @@ async function getIndexData(): Promise<IndexData[]> {
     const indexData: IndexData = {
       name: item.quote.name,
       symbol: item.quote.symbol,
-      status_id: item.market.status,
-      status: item.market.status_text,
+      status_id: item.market.status_id,
+      status: item.market.status,
       region: item.market.region,
       percent: item.quote.percent,
       current: item.quote.current,
