@@ -1,5 +1,4 @@
-import { getIndexData } from "@/app/yuanbaotree/index/real/route";
-
+import { getIndexData } from '@/lib/stock';
 export default async function YuanbaoTree() {
   // const indices = [
   //   {
