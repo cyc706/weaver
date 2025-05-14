@@ -23,7 +23,7 @@ interface IndexData {
   timestamp: number; // 时间戳
 }
 
-async function getIndexData(): Promise<IndexData[]> {
+export async function getIndexData(): Promise<IndexData[]> {
   const cookie = await getFileCookie();
   const res = await axios.request({
     method: 'get',
