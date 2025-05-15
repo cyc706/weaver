@@ -1,10 +1,12 @@
 import { getIndexData } from '@/lib/stock';
 import dayjs from 'dayjs';
+export const dynamic = 'force-dynamic';
 export default async function YuanbaoTree() {
+
   const indices = await getIndexData();
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white dark:bg-gray-900 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">主要行情指数 {dayjs().format('YYYY-MM-DD HH:mm:ss')}</h1>
+      <h1 className="text-2xl font-bold mb-6">主要行情指数</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {indices.map((index) => (
           <div

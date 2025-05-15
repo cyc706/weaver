@@ -2,7 +2,7 @@ import { getFileCookie } from '@/lib/cookie';
 import axios from 'axios';
 import { get } from '@/utils/index';
 
-interface IndexData {
+export interface IndexData {
   name: string;
   symbol: string;
   status_id: number; // 5交易中 8休市
