@@ -1,39 +1,13 @@
 import { getIndexData } from '@/lib/stock';
-export default async function YuanbaoTree() {
-  // const indices = [
-  //   {
-  //     name: "上证指数",
-  //     symbol: "SH000001",
-  //     current: 3254.32,
-  //     change: 1.23,
-  //     percent: 0.38,
-  //     status: "交易中",
-  //     status_id: 5,
-  //   },
-  //   {
-  //     name: "深证成指",
-  //     symbol: "SZ399001",
-  //     current: 11714.16,
-  //     change: -12.45,
-  //     percent: -0.11,
-  //     status: "休市",
-  //     status_id: 8,
-  //   },
-  //   {
-  //     name: "创业板指",
-  //     symbol: "SZ399006",
-  //     current: 2409.76,
-  //     change: 5.67,
-  //     percent: 0.24,
-  //     status: "交易中",
-  //     status_id: 5,
-  //   },
-  // ];
 
+export const config = {
+  revalidate: 0, // 禁用缓存
+}
+export default async function YuanbaoTree() {
   const indices = await getIndexData();
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white dark:bg-gray-900 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">主要指数</h1>
+      <h1 className="text-2xl font-bold mb-6">主要行情指数</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {indices.map((index) => (
           <div
