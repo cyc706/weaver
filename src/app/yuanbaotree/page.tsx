@@ -1,5 +1,4 @@
 import { getIndexData } from '@/lib/stock';
-import dayjs from 'dayjs';
 export const dynamic = 'force-dynamic';
 export default async function YuanbaoTree() {
 
