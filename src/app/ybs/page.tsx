@@ -1,9 +1,48 @@
-import { getIndexData } from "@/lib/stock";
+'use client';
+
+import { IndexData } from "@/lib/stock";
 import dayjs from "dayjs";
+import axios from "axios";
+import { useEffect, useState } from "react";
 export const dynamic = "force-dynamic";
 
-export default async function YBS() {
-  const indices = await getIndexData();
+export default function YBS() {
+  const [indices, setIndices] = useState<IndexData[]>([]);
+  const [updateTime, setUpdateTime] = useState<string>("");
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    const fetchData = async () => {
+      setUpdateTime(dayjs().format("YYYY-MM-DD HH:mm:ss"));
+      try {
+        const response = await axios.get("/yuanbaotree/index/real");
+        setIndices(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        fetchData();
+        intervalId = setInterval(fetchData, 60000);
+      } else {
+        clearInterval(intervalId);
+      }
+    };
+
+    fetchData();
+    intervalId = setInterval(fetchData, 60000);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [])
+
+  if (indices.length === 0) {
+    return <div></div>;
+  }
 
   return (
     <div>
@@ -37,7 +76,7 @@ export default async function YBS() {
 
 
       <div className="p-2">
-        <div className="text-gray-500 text-sm">当前时间: {dayjs().format('YYYY-MM-DD HH:mm:ss')}</div>
+        <div className="text-gray-500 text-sm">当前时间: {updateTime}</div>
       </div>
     </div>
   );
