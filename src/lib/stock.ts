@@ -1,6 +1,7 @@
 import { getFileCookie } from '@/lib/cookie';
 import axios from 'axios';
 import { get } from '@/utils/index';
+import { StockData } from '@/types/xueqiu';
 
 export interface IndexData {
   name: string;
@@ -25,9 +26,9 @@ export async function getIndexData(): Promise<IndexData[]> {
     },
   });
   const result: IndexData[] = [];
-  const list = get(res.data, 'data.items', []);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  list.forEach((item: any) => {
+  const list = get(res.data, 'data.items', []) as StockData[];
+  
+  list.forEach((item: StockData) => {
     const indexData: IndexData = {
       name: item.quote.name,
       symbol: item.quote.symbol,
@@ -43,5 +44,37 @@ export async function getIndexData(): Promise<IndexData[]> {
   });
 
   return result;
+}
 
+export async function getStockData(symbol: string[] | number[]): Promise<IndexData[]> {
+  const cookie = await getFileCookie();
+  const res = await axios.request({
+    method: 'get',
+    url: `https://stock.xueqiu.com/v5/stock/batch/quote.json?symbol=${symbol.join(',')}&extend=detail&is_delay_hk=true`,
+    headers: {
+      'Cookie': cookie,
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+    },
+  });
+
+  console.log(res.data);
+  const result: IndexData[] = [];
+  const list = get(res.data, 'data.items', []) as StockData[];
+  
+  list.forEach((item: StockData) => {
+    const indexData: IndexData = {
+      name: item.quote.name,
+      symbol: item.quote.symbol,
+      status_id: item.market.status_id,
+      status: item.market.status,
+      region: item.market.region,
+      percent: item.quote.percent,
+      current: item.quote.current,
+      chg: item.quote.chg,
+      timestamp: Math.floor(item.quote.timestamp / 1000),
+    };
+    result.push(indexData);
+  });
+
+  return result;
 }
