@@ -8,4 +8,5 @@ export interface FEStock {
   current: number; // 当前价
   chg: number; // 涨跌额
   timestamp: number; // 时间戳
+  logo?: string; // 图标
 }

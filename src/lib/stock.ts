@@ -35,6 +35,29 @@ export async function getIndexData(): Promise<FEStock[]> {
   return result;
 }
 
+
+
+function getLogo(symbol: string, region: string): string {
+
+  if (symbol.startsWith('0')) {
+    return `https://baidu-finance.cdn.bcebos.com/imgs/icons/${symbol.slice(1)}.svg`;
+  }
+
+  if (region === 'US') {
+    return `https://baidu-finance.cdn.bcebos.com/imgs/icons/${symbol.toLocaleLowerCase()}.svg`;
+  }
+
+
+  if (region === 'CN') {
+    return `https://baidu-finance.cdn.bcebos.com/imgs/icons/${symbol.slice(2)}.svg`;
+  }
+
+
+  return ''
+
+
+}
+
 export async function getStockData(symbol: string[] | number[]): Promise<FEStock[]> {
   const cookie = await getFileCookie();
   const res = await axios.request({
@@ -60,6 +83,7 @@ export async function getStockData(symbol: string[] | number[]): Promise<FEStock
       current: item.quote.current,
       chg: item.quote.chg,
       timestamp: Math.floor(item.quote.timestamp / 1000),
+      logo: getLogo(item.quote.symbol, item.market.region),
     };
     result.push(indexData);
   });

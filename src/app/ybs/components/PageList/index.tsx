@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useMemo } from "react";
 import { useYbsStore } from "@/app/ybs/store";
 import RateNum from "@/app/ybs/components/RateNum";
@@ -51,7 +52,12 @@ export default function PageList() {
           {showList.map((item) => (
             <div className={styles.line} key={item.symbol}>
               <div className="flex-1 flex items-center gap-[8px]">
-                <div className="w-[30px] h-[30px] bg-gray-500"></div>
+                {item.logo ? (
+                  <img src={item.logo} alt="" className={styles.logo} />
+                ) : (
+                  <div className={styles.logo}></div>
+                )}
+
                 <div>
                   <div className={styles.name}>{item.name}</div>
                   <div className={styles.symbol}>{item.symbol}</div>
