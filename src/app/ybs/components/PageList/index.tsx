@@ -41,7 +41,7 @@ export default function PageList() {
 
       <div className={styles.listHeader}>
         <div className="flex-1">名称</div>
-        <div className="w-[50px] text-center">现价</div>
+        <div className="w-[50px] text-end">现价</div>
         <div className="w-[100px] text-right">涨跌幅</div>
       </div>
 
@@ -64,7 +64,7 @@ export default function PageList() {
                 </div>
               </div>
 
-              <div className={styles.price}>{item.current}</div>
+              <div className={styles.price}>{item.current.toFixed(2)}</div>
               <div className="w-[100px] text-right">
                 <RateNum num={item.percent} />
               </div>

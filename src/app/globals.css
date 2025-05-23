@@ -6,7 +6,8 @@
 
   --ybs-main: rgba(0, 0, 0, 0.88);
   --ybs-sub: rgba(0, 0, 0, 0.45);
-  --ybs-secondary: #C0C1C0;
+  /* --ybs-secondary: #C0C1C0; */
+  --ybs-secondary: rgba(0, 0, 0, 0.25);
   --ybs-border: rgba(0, 0, 0, 0.15);
   --ybs-primary: #002c8c;
 

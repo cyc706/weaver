@@ -3,6 +3,9 @@
   justify-content: space-between;
   align-items: center;
   height: 40px;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 
 .tab {
@@ -57,8 +60,9 @@
   width: 50px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .empty {
