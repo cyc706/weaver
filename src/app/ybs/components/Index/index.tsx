@@ -1,12 +1,12 @@
 "use client";
 
-import { IndexData } from "@/lib/stock";
+import { FEStock } from "@/types/fe";
 import dayjs from "dayjs";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Index() {
-  const [indices, setIndices] = useState<IndexData[]>([]);
+  const [indices, setIndices] = useState<FEStock[]>([]);
   const [updateTime, setUpdateTime] = useState<string>("");
 
   useEffect(() => {
