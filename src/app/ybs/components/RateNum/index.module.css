@@ -1,0 +1,31 @@
+.rise {
+  color: var(--ybs-rise);
+  font-size: 12px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.down {
+  color: var(--ybs-down);
+  font-size: 12px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+
+.triangleRise {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 4px 8px 4px;
+  border-color: transparent transparent var(--ybs-rise) transparent;
+  margin-bottom: 2px;
+}
+
+.triangleDown {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 4px 0 4px;
+  border-color: var(--ybs-down) transparent transparent transparent;
+}

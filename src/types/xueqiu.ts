@@ -14,6 +14,7 @@ export interface Market {
   delay_tag: number;       // 延迟标记
 }
 
+
 /**
  * 股票报价信息
  */

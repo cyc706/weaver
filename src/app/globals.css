@@ -3,6 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --ybs-main: rgba(0, 0, 0, 0.88);
+  --ybs-sub: rgba(0, 0, 0, 0.45);
+  --ybs-secondary: #C0C1C0;
+  --ybs-border: rgba(0, 0, 0, 0.15);
+  --ybs-primary: #002c8c;
+
+  --ybs-rise: #FE3D04;
+  --ybs-down: #05C94F;
 }
 
 @theme inline {
@@ -24,3 +33,6 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+

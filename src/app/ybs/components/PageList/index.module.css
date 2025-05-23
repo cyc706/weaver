@@ -1,0 +1,69 @@
+.tabContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+
+.tab {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ybs-sub);
+  border-bottom: 1px solid var(--ybs-border);
+}
+
+.tabName {
+  font-size: 12px;
+}
+
+.active {
+  color: var(--ybs-main);
+  border-bottom: 2px solid var(--ybs-main);
+  font-weight: bold;
+}
+
+.listHeader {
+  display: flex;
+  font-size: 10px;
+  color: var(--ybs-secondary);
+  padding: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.line {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0 8px;
+}
+
+.symbol {
+  color: var(--ybs-sub);
+  font-size: 10px;
+}
+
+.name {
+  color: var(--ybs-main);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.price {
+  font-family: monospace;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.empty {
+  font-size: 10px;
+  color: var(--ybs-secondary);
+  padding: 8px;
+  text-align: center;
+}

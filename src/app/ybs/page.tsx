@@ -1,18 +1,22 @@
 "use client";
 
-// import { IndexData } from "@/lib/stock";
-// import dayjs from "dayjs";
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import Index from "./components/Index";
-import List from "./components/List";
+import PageList from "./components/PageList";
+import { useYbsStore } from "@/app/ybs/store";
+import { useEffect } from "react";
 
 export default function YBS() {
+  const loading = useYbsStore((state) => state.loading);
+  const init = useYbsStore((state) => state.init);
+  useEffect(() => {
+    init();
+  });
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
-      {/* <Index /> */}
-
-      <List />
+      <PageList />
     </div>
   );
 }

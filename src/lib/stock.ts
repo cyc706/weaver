@@ -2,20 +2,9 @@ import { getFileCookie } from '@/lib/cookie';
 import axios from 'axios';
 import { get } from '@/utils/index';
 import { StockData } from '@/types/xueqiu';
+import { FEStock } from '@/types/fe';
 
-export interface IndexData {
-  name: string;
-  symbol: string;
-  status_id: number; // 5交易中 8休市
-  status: string; // 交易状态tag
-  region: string; // 地区
-  percent: number; // 涨跌幅
-  current: number; // 当前价
-  chg: number; // 涨跌额
-  timestamp: number; // 时间戳
-}
-
-export async function getIndexData(): Promise<IndexData[]> {
+export async function getIndexData(): Promise<FEStock[]> {
   const cookie = await getFileCookie();
   const res = await axios.request({
     method: 'get',
@@ -25,11 +14,11 @@ export async function getIndexData(): Promise<IndexData[]> {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
     },
   });
-  const result: IndexData[] = [];
+  const result: FEStock[] = [];
   const list = get(res.data, 'data.items', []) as StockData[];
   
   list.forEach((item: StockData) => {
-    const indexData: IndexData = {
+    const indexData: FEStock = {
       name: item.quote.name,
       symbol: item.quote.symbol,
       status_id: item.market.status_id,
@@ -46,7 +35,7 @@ export async function getIndexData(): Promise<IndexData[]> {
   return result;
 }
 
-export async function getStockData(symbol: string[] | number[]): Promise<IndexData[]> {
+export async function getStockData(symbol: string[] | number[]): Promise<FEStock[]> {
   const cookie = await getFileCookie();
   const res = await axios.request({
     method: 'get',
@@ -57,12 +46,11 @@ export async function getStockData(symbol: string[] | number[]): Promise<IndexDa
     },
   });
 
-  console.log(res.data);
-  const result: IndexData[] = [];
+  const result: FEStock[] = [];
   const list = get(res.data, 'data.items', []) as StockData[];
   
   list.forEach((item: StockData) => {
-    const indexData: IndexData = {
+    const indexData: FEStock = {
       name: item.quote.name,
       symbol: item.quote.symbol,
       status_id: item.market.status_id,
