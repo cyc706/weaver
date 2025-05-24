@@ -1,6 +1,5 @@
 const config = {
   plugins: {
-    "@tailwindcss/postcss": {},
     "postcss-px-to-viewport": {
       unitToConvert: "px", // 需要转换的单位
       viewportWidth: 375, // 设计稿宽度（如 750px 设计稿）

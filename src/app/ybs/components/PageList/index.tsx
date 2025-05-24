@@ -40,10 +40,10 @@ export default function PageList() {
       </div>
 
       <div className={styles.listHeader}>
-        <div className="flex-1">名称</div>
-        <div className="w-[80px] text-end">今年以来涨幅</div>
-        <div className="w-[80px] text-end">现价</div>
-        <div className="w-[100px] text-right">涨跌幅</div>
+        <div className={styles.colName}>名称</div>
+        <div className={styles.colNormal}>今年以来涨幅</div>
+        <div className={styles.colNormal}>现价</div>
+        <div className={styles.colRate}>涨跌幅</div>
       </div>
 
       {showList.length === 0 ? (
@@ -52,7 +52,7 @@ export default function PageList() {
         <>
           {showList.map((item) => (
             <div className={styles.line} key={item.symbol}>
-              <div className="flex-1 flex items-center gap-[8px]">
+              <div className={styles.lineName}>
                 {item.logo ? (
                   <img src={item.logo} alt="" className={styles.logo} />
                 ) : (
@@ -66,7 +66,7 @@ export default function PageList() {
               </div>
               <div className={styles.year}><RateNum num={item.current_year_percent} triangle={false} /></div>
               <div className={styles.price}>{item.current.toFixed(2)}</div>
-              <div className="w-[100px] text-right">
+              <div className={styles.colRate}>
                 <RateNum num={item.percent} triangle />
               </div>
             </div>

@@ -89,3 +89,25 @@
   border-radius: 50%;
   background-color: gray;
 }
+
+.colName {
+  flex: 1; 
+}
+
+.colNormal {
+  width: 80px;
+  text-align: right;
+}
+
+.colRate {
+  width: 80px;
+  text-align: right;
+}
+
+
+.lineName {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

@@ -7,7 +7,7 @@ export default function RateNum(props: { num: number; triangle: boolean }) {
 
   if (isPositive) {
     return (
-      <div className="flex items-center justify-end gap-[4px]">
+      <div className={styles.container}>
         <div className={styles.rise}>+{num}%</div>
         {triangle && <div className={styles.triangleRise}></div>}
       </div>
@@ -15,7 +15,7 @@ export default function RateNum(props: { num: number; triangle: boolean }) {
   }
 
   return (
-    <div className="flex items-center justify-end gap-[4px]">
+    <div className={styles.container}>
       <div className={styles.down}>{num}%</div>
       {triangle && <div className={styles.triangleDown}></div>}
     </div>
