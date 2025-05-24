@@ -26,6 +26,7 @@ export async function getIndexData(): Promise<FEStock[]> {
       region: item.market.region,
       percent: item.quote.percent,
       current: item.quote.current,
+      current_year_percent: item.quote.current_year_percent,
       chg: item.quote.chg,
       timestamp: Math.floor(item.quote.timestamp / 1000),
     };
@@ -81,6 +82,7 @@ export async function getStockData(symbol: string[] | number[]): Promise<FEStock
       region: item.market.region,
       percent: item.quote.percent,
       current: item.quote.current,
+      current_year_percent: item.quote.current_year_percent,
       chg: item.quote.chg,
       timestamp: Math.floor(item.quote.timestamp / 1000),
       logo: getLogo(item.quote.symbol, item.market.region),

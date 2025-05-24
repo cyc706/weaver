@@ -57,7 +57,17 @@
 
 .price {
   font-family: monospace;
-  width: 50px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.year {
+  font-family: monospace;
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
