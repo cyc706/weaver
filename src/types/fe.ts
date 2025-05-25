@@ -11,3 +11,10 @@ export interface FEStock {
   current_year_percent: number; // 年初至今涨跌幅
   logo?: string; // 图标
 }
+
+
+export interface FESearchStock {
+  symbol: string;          // 股票代码，如：BABA
+  name: string;          // 股票名称，如：阿里巴巴
+  region: string;      // 交易所，如：NYSE HK CN
+}

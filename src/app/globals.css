@@ -13,8 +13,17 @@
   --ybs-down: #05C94F;
 }
 
-body {
+html,body {
   font-size: 14px;
+  margin: 0;
+  padding: 0;
+  /* 禁止默认手势事件 */
+  touch-action: none;
 }
 
 
+
+div:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}

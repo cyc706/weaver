@@ -94,3 +94,35 @@ export interface StockData {
   quote: Quote;            // 股票报价信息
   others: Others;          // 其他信息
 }
+
+
+/**
+ * 搜索股票信息
+ */
+export interface SearchStockInfo {
+  code: string;          // 股票代码，如：BABA
+  name: string;          // 股票名称，如：阿里巴巴
+  enName: string;        // 英文名称（可能为空）
+  hasexist: string;      // 是否存在（字符串形式，如："false"）
+  indId: number;         // 行业ID
+  flag: number;          // 标志
+  type: number;          // 类型
+  subType: string;       // 子类型
+  current: string;       // 当前价格（字符串形式）
+  percentage: number;    // 涨跌幅百分比
+  state: number;         // 状态
+  sort: null;            // 排序（空）
+  label: string;         // 标签
+  exchange: string;      // 交易所，如：NYSE
+  tradeStatus: number;   // 交易状态
+  extension: null;       // 扩展信息（空）
+  stock_id: number;      // 股票ID
+  ind_name: string;      // 行业名称（可能为空）
+  ind_color: null;       // 行业颜色（空）
+  _source: string;       // 来源信息
+  short_company_name: null; // 公司简称（空）
+  market_status: number; // 市场状态
+  promotion_reason: null; // 推广原因（空）
+  extension_type: null;  // 扩展类型（空）
+  highlight_name: null;  // 高亮名称（空）
+}

@@ -29,6 +29,47 @@ export function get<T, D>(
   return result === undefined ? defaultValue : result;
 }
 
+type DebouncedFunction<T extends (...args: any[]) => any> = (
+  this: ThisParameterType<T>,
+  ...args: Parameters<T>
+) => void;
+
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number,
+  immediate?: boolean
+): DebouncedFunction<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this; // 保存原函数的 this 上下文
+    const later = () => {
+      timeoutId = null; // 清空定时器 ID
+      // 非立即执行模式下，延迟结束后调用原函数
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
+
+    const callNow = immediate && !timeoutId; // 判断是否需要立即执行
+
+    // 每次调用时，先清除之前的定时器
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // 设置新的定时器
+    timeoutId = setTimeout(later, wait);
+
+    // 立即执行模式且首次触发时，直接调用原函数
+    if (callNow) {
+      func.apply(context, args);
+    }
+  };
+}
+
+
 export const HOLIDAYS_2025 = [
   { date: "2025-01-01", name: "元旦" },
   { date: "2025-01-28", name: "除夕" },
@@ -61,7 +102,7 @@ interface TradingDayInfo {
   // 当前日期 YYYY-MM-DD
   currentDate: string;
   // 是否交易日
-  isTradingDate: boolean;
+  isTradingDay: boolean;
   // 交易日 节假日 周末休市
   currentDateName: string;
   // 上一个交易日日期 YYYY-MM-DD
@@ -120,7 +161,7 @@ export function getTradingDayInfo(inputDate?: string | Date): TradingDayInfo {
   
   return {
     currentDate: today.format('YYYY-MM-DD'),
-    isTradingDate: isTradingDay,
+    isTradingDay: isTradingDay,
     currentDateName: name,
     lastTradingDate: isTradingDay 
       ? today.format('YYYY-MM-DD') 

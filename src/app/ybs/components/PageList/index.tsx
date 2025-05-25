@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import { useYbsStore } from "@/app/ybs/store";
 import RateNum from "@/app/ybs/components/RateNum";
+import Search from "@/app/ybs/components/Search";
 import styles from "./index.module.css";
 
 export default function PageList() {
@@ -22,21 +23,27 @@ export default function PageList() {
   return (
     <div className={styles.container}>
       <div className={styles.tabContainer}>
-        {tabs.map((item) => {
-          return (
-            <div
-              key={item.key}
-              className={`${styles.tab} ${
-                currentTab === item.key ? styles.active : ""
-              }`}
-              onClick={() => {
-                setCurrentTab(item.key);
-              }}
-            >
-              <div className={styles.tabName}>{item.name}</div>
-            </div>
-          );
-        })}
+        <div className={styles.tabsWrap}>
+          {tabs.map((item) => {
+            return (
+              <div
+                key={item.key}
+                className={`${styles.tab} ${
+                  currentTab === item.key ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setCurrentTab(item.key);
+                }}
+              >
+                <div className={styles.tabName}>{item.name}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className={styles.action}>
+          <Search />
+        </div>
       </div>
 
       <div className={styles.listHeader}>
@@ -64,7 +71,9 @@ export default function PageList() {
                   <div className={styles.symbol}>{item.symbol}</div>
                 </div>
               </div>
-              <div className={styles.year}><RateNum num={item.current_year_percent} triangle={false} /></div>
+              <div className={styles.year}>
+                <RateNum num={item.current_year_percent} triangle={false} />
+              </div>
               <div className={styles.price}>{item.current.toFixed(2)}</div>
               <div className={styles.colRate}>
                 <RateNum num={item.percent} triangle />

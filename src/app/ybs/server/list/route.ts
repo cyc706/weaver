@@ -1,6 +1,7 @@
 import { getStockData } from "@/lib/stock";
+import { type NextRequest } from 'next/server'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const list = [
     {
       name: "阿里巴巴-W",
@@ -98,6 +99,21 @@ export async function GET() {
       region: "US",
     },
   ];
+
+
+  const searchParams = request.nextUrl.searchParams;
+  const codeList = searchParams.get("codeList");
+
+  if (codeList) {
+    const codeListArray = codeList.split(",");
+    codeListArray.forEach((item) => {
+      list.push({
+        name: item,
+        symbol: item,
+        region: "CN",
+      });
+    });
+  }
 
   const result = await getStockData(list.map((item) => item.symbol));
   return Response.json(result);

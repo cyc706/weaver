@@ -1,8 +1,8 @@
 import { getFileCookie } from '@/lib/cookie';
 import axios from 'axios';
 import { get } from '@/utils/index';
-import { StockData } from '@/types/xueqiu';
-import { FEStock } from '@/types/fe';
+import { StockData, SearchStockInfo } from '@/types/xueqiu';
+import { FEStock, FESearchStock } from '@/types/fe';
 
 export async function getIndexData(): Promise<FEStock[]> {
   const cookie = await getFileCookie();
@@ -86,6 +86,38 @@ export async function getStockData(symbol: string[] | number[]): Promise<FEStock
       chg: item.quote.chg,
       timestamp: Math.floor(item.quote.timestamp / 1000),
       logo: getLogo(item.quote.symbol, item.market.region),
+    };
+    result.push(indexData);
+  });
+
+  return result;
+}
+
+export async function getSearchStockData(
+  code: string
+): Promise<FESearchStock[]> {
+  const cookie = await getFileCookie();
+  const res = await axios.request({
+    method: "get",
+    url: `https://xueqiu.com/query/v1/search/stock.json`,
+    params: {
+      code,
+      size: 10,
+    },
+    headers: {
+      Cookie: cookie,
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+    },
+  });
+  const result: FESearchStock[] = [];
+  const list = get(res.data, "stocks", []) as SearchStockInfo[];
+
+  list.forEach(item => {
+    const indexData: FESearchStock = {
+      name: item.name,
+      symbol: item.code,
+      region: item.exchange,
     };
     result.push(indexData);
   });
