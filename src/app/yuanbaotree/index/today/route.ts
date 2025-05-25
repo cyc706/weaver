@@ -31,7 +31,7 @@ export async function GET() {
   const today = dayjs().format("YYYY-MM-DD");
 
   const dayInfo = getTradingDayInfo(today);
-  const { lastTradingDate, currentDate, currentDateName, isTradingDate } =
+  const { lastTradingDate, currentDate, currentDateName } =
     dayInfo;
   const indexCode = "000001"; // 上证指数
 
@@ -83,7 +83,7 @@ export async function GET() {
           indexName: "上证指数",
           currentDate,
           currentDateName,
-          isTradingDate,
+          isTradingDate: dayInfo.isTradingDay,
           date: get(summaryResult.data, "[0].日期"),
           value: get(summaryResult.data, "[0].收盘"),
           diff: get(summaryResult.data, "[0].涨跌额"),
