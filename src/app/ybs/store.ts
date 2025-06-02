@@ -1,7 +1,7 @@
 "use client";
 import { create } from "zustand";
 import { FEStock } from "@/types/fe";
-import { apiGetStockList } from "@/app/ybs/api";
+import { apiGetStockList, apiImgBlack } from "@/app/ybs/api";
 
 const localKey = "ybs_stock_list";
 
@@ -24,6 +24,7 @@ export interface State {
   init: () => void;
   addStock: (symbol: string) => void;
   removeStock: (symbol: string) => void;
+  addImageBlock: (symbol: string) => void;
 }
 
 export const useYbsStore = create<State>((set, get) => ({
@@ -82,4 +83,8 @@ export const useYbsStore = create<State>((set, get) => ({
     set({ localSymbolList: newSymbolList });
     init();
   },
+
+  addImageBlock: (symbol: string) => {
+    apiImgBlack(symbol);
+  }
 }));

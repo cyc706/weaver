@@ -10,6 +10,7 @@ export default function PageList() {
   const currentTab = useYbsStore((s) => s.currentTab);
   const setCurrentTab = useYbsStore((s) => s.setCurrentTab);
   const stockList = useYbsStore((s) => s.stockList);
+  const addImageBlock = useYbsStore((s) => s.addImageBlock);
   const showList = useMemo(() => {
     if (currentTab === "all") {
       return stockList;
@@ -61,9 +62,18 @@ export default function PageList() {
             <div className={styles.line} key={item.symbol}>
               <div className={styles.lineName}>
                 {item.logo ? (
-                  <img src={item.logo} alt="" className={styles.logo} />
+                  <img
+                    src={item.logo}
+                    alt=""
+                    className={styles.logo}
+                    onError={() => {
+                      addImageBlock(item.symbol);
+                    }}
+                  />
                 ) : (
-                  <div className={styles.logo}></div>
+                  <div className={styles.emptyLogo}>
+                    {item.name.slice(0, 1).toUpperCase()}
+                  </div>
                 )}
 
                 <div>

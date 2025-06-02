@@ -104,6 +104,18 @@
   background-color: gray;
 }
 
+.emptyLogo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
 .colName {
   flex: 1; 
 }

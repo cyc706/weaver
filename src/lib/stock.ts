@@ -3,6 +3,7 @@ import axios from 'axios';
 import { get } from '@/utils/index';
 import { StockData, SearchStockInfo } from '@/types/xueqiu';
 import { FEStock, FESearchStock } from '@/types/fe';
+import { getBlackList } from "@/lib/stockblock";
 
 export async function getIndexData(): Promise<FEStock[]> {
   const cookie = await getFileCookie();
@@ -61,6 +62,7 @@ function getLogo(symbol: string, region: string): string {
 
 export async function getStockData(symbol: string[] | number[]): Promise<FEStock[]> {
   const cookie = await getFileCookie();
+  const blackListImg = await getBlackList();
   const res = await axios.request({
     method: 'get',
     url: `https://stock.xueqiu.com/v5/stock/batch/quote.json?symbol=${symbol.join(',')}&extend=detail&is_delay_hk=true`,
@@ -85,7 +87,7 @@ export async function getStockData(symbol: string[] | number[]): Promise<FEStock
       current_year_percent: item.quote.current_year_percent,
       chg: item.quote.chg,
       timestamp: Math.floor(item.quote.timestamp / 1000),
-      logo: getLogo(item.quote.symbol, item.market.region),
+      logo: blackListImg.includes(item.quote.symbol) ? '' : getLogo(item.quote.symbol, item.market.region),
     };
     result.push(indexData);
   });

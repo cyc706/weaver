@@ -31,3 +31,18 @@ export async function apiSearchStock(code: string): Promise<FEStock[]> {
     return [];
   }
 }
+
+export async function apiImgBlack(code: string): Promise<FEStock[]> {
+  try {
+    const result = await axios.request({
+      url: "/ybs/server/img",
+      params: {
+        code,
+      },
+    });
+    return result.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+}
