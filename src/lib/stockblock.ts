@@ -3,7 +3,7 @@ import fs from "fs";
 let list: string[] = [];
 export async function getBlackList(): Promise<string[]> {
   if (list.length) {
-    return list;
+    return Promise.resolve(list);
   }
   return new Promise((resolve, reject) => {
     if (!fs.existsSync('stock.txt')) {
