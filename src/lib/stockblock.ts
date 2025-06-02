@@ -17,7 +17,7 @@ export async function getBlackList(): Promise<string[]> {
         console.error("Error reading file:", err);
         reject(err);
       } else {
-        list = JSON.parse(data);
+        list = JSON.parse(data || '[]');
         resolve(list);
       }
     });
